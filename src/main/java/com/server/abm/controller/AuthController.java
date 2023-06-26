@@ -25,7 +25,7 @@ public class AuthController {
             if (registeredAccount == null) {
                 return ResponseEntity.badRequest().body("Error !!");
             }
-            return ResponseEntity.ok().body("đăng kí thành công");
+            return ResponseEntity.ok().body(registeredAccount);
         }
     }
 

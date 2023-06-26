@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/users")
+@RequestMapping("api/")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/add")
+    @PostMapping("auth/users/add")
     public ResponseEntity<?> addMember(@RequestBody User user) {
         if (userService.getByEmail(user.getEmail()) != null || userService.getByPhone(user.getPhone()) != null) {
             return ResponseEntity.badRequest().body("email or phone is ready !!");
@@ -23,12 +23,12 @@ public class UserController {
         return ResponseEntity.ok().body(userService.saveOrUpdate(user));
     }
 
-    @GetMapping("/randomId")
+    @GetMapping("auth/users/randomId")
     public ResponseEntity<String> randomIdCustomer() {
         return ResponseEntity.ok().body(userService.randomId());
     }
 
-    @GetMapping("/getListUser")
+    @GetMapping("users/getListUser")
     public ResponseEntity<?> getListCustomer() {
         List<User> customerList = userService.getAllUser();
         if (customerList != null) {
