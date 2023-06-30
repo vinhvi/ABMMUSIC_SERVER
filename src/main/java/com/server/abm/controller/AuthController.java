@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/auth")
@@ -19,7 +21,7 @@ public class AuthController {
     @PostMapping("/account/register")
     public ResponseEntity<?> registerAccount(@RequestBody Account account) {
         if (accountService.getByEmail(account.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("email đã đc đăng kí");
+            return ResponseEntity.ok().body("email is ready in database");
         } else {
             Account registeredAccount = accountService.register(account);
             if (registeredAccount == null) {
@@ -32,11 +34,7 @@ public class AuthController {
     @PostMapping("/account/login")
     public ResponseEntity<?> login(@RequestBody Account account) {
         String token = accountService.login(account);
-        if (token != null) {
-            return ResponseEntity.ok().body(token);
-        } else {
-            return ResponseEntity.badRequest().body("Tài khoản hoặc mật khẩu khôn đúng !!");
-        }
+        return ResponseEntity.ok().body(Objects.requireNonNullElse(token, "Tài khoản hoặc mật khẩu khôn đúng !!"));
 
     }
 

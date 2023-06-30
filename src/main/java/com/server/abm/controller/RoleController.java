@@ -17,7 +17,7 @@ public class RoleController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Role role) {
         if (roleService.getByName(role.getName()) != null) {
-            return ResponseEntity.badRequest().body("role đã tồn tại");
+            return ResponseEntity.ok().body("role is ready in database!");
         } else {
             Role newRole = roleService.createRole(role);
             if (newRole == null) {

@@ -18,7 +18,7 @@ public class UserController {
     @PostMapping("auth/users/add")
     public ResponseEntity<?> addMember(@RequestBody User user) {
         if (userService.getByEmail(user.getEmail()) != null || userService.getByPhone(user.getPhone()) != null) {
-            return ResponseEntity.badRequest().body("email or phone is ready !!");
+            return ResponseEntity.ok().body("email or phone is ready !!");
         }
         return ResponseEntity.ok().body(userService.saveOrUpdate(user));
     }
