@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_favoritesList")
@@ -19,5 +20,12 @@ public class FavoritesList implements Serializable {
     private int id;
 
     private Date dateAdd;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favoritesList_id")
+    private List<Music> musicList;
 
 }
